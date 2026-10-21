@@ -2,7 +2,7 @@
 
 > ### Summary, results and contributions
 >
-> **Status:** this design was submitted for the IEEE UNIC-CASS 2024 tapeout (Caravan, SkyWater SKY130) but was **not fabricated**: Efabless, which ran the shuttle, shut down before fabrication. All results are from simulation.
+> **Status:** this design was submitted for the IEEE UNIC-CASS 2024 tapeout (Caravan, SkyWater SKY130) but was **not fabricated** because Efabless, which ran the shuttle, shut down before fabrication. All results are from simulation.
 >
 > **Tools:** Xschem and ngspice (schematic and simulation), Magic (custom layout), Netgen (LVS), OpenROAD/OpenLane (SAR logic).
 >
@@ -26,7 +26,7 @@ More layout and simulation captures (switches, transmission gates, capacitor blo
 | Contributor | Role |
 |---|---|
 | Lohan Atapattu, Sajitha Madugalle, Hirusha Maduwantha | Schematic design and simulation |
-| **Imasha Nethmal** | **Layout: CDAC and overall top-level layout** |
+| **Imasha Nethmal** | **Simulations, Layout: CDAC and overall top-level layout** |
 | Kithmin Wickremasinghe | Layout (comparator) and tapeout submission |
 | Lohan Atapattu | SAR logic layout (OpenROAD) |
 | Erandee Jayathilaka | SAR logic development (digital) |
