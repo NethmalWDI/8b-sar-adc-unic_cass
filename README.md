@@ -22,8 +22,6 @@ Custom layout of the CDAC and its switches was drawn in Magic (SKY130). The digi
 | <img src="figures/capswitch_unit_layout.png" height="380" alt="Capacitor-switch unit cell layout"/> | <img src="figures/switch_layout.png" height="380" alt="Transmission gate layout"/> |
 | Capacitor-switch block layout (<code>test/images/cap_switch_block_layout.png</code>) | Transmission-gate sampling switch (clk / clk_b) |
 
-<p align="center"><img src="figures/cdac_lvs.png" width="55%" alt="CDAC LVS output"/></p>
-<p align="center"><em>Netgen LVS of the CDAC layout against its schematic netlist: 1490 devices and 370 nets on both sides, circuits match uniquely. Netgen also reports property errors (see <code>comp.out</code>), which are not yet resolved.</em></p>
 
 #### SAR logic (OpenROAD, sky130_fd_sc_hd)
 
@@ -80,10 +78,11 @@ More captures and the testbenches themselves are in [`test/images`](test/images)
 
 | Contributor | Role |
 |---|---|
-| Lohan Atapattu, Sajitha Madugalle, Hirusha Maduwantha | Schematic design and simulation |
-| **Imasha Nethmal** | **Simulations, Layout: CDAC and overall top-level layout** |
+| Lohan Atapattu | Schematic design and simulation, SAR logic layout (OpenROAD) |
+| Sajitha Madugalle | Schematic design and simulation |
+| Hirusha Maduwantha | Schematic design and simulation |
+| **Imasha Nethmal** | **Schematic design and simulation, Layout** |
 | Kithmin Wickremasinghe | Layout (comparator) and tapeout submission |
-| Lohan Atapattu | SAR logic layout (OpenROAD) |
 | Erandee Jayathilaka | SAR logic development (digital) |
 
 ---
