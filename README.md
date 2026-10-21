@@ -1,9 +1,43 @@
 ## [100KSPS 8-bit Fully-differential Successive Approximation Register (SAR) analog-to-digital converter (ADC) for Low-power Applications](https://repositories.efabless.com/kithminrw/IC2-CASS-2024) - [Universalization of IC Design from CASS](https://github.com/unic-cass)
 
+> ### Summary, results and contributions
+>
+> **Status:** this design was submitted for the IEEE UNIC-CASS 2024 tapeout (Caravan, SkyWater SKY130) but was **not fabricated**: Efabless, which ran the shuttle, shut down before fabrication. All results are from simulation.
+>
+> **Tools:** Xschem and ngspice (schematic and simulation), Magic (custom layout), Netgen (LVS), OpenROAD/OpenLane (SAR logic).
+>
+> The original proposal and target specification are kept below for reference; the target values are design goals, not achieved results.
+
+#### CDAC layout (SKY130, Magic)
+
+<p align="center"><img src="figures/cdac_layout.png" width="90%" alt="Binary-weighted CDAC layout"/></p>
+<p align="center"><em>Binary-weighted capacitor DAC with its switch array (layout files and LVS output in <code>test/Layout/capdac_p_layout</code>).</em></p>
+
+#### Selected simulation results
+
+| CDAC / comparator-input convergence during conversion | Output code bits during conversion |
+|---|---|
+| ![CDAC simulation](test/images/simulation_results_sar_tb1_capdac1.png) | ![Output bits](test/images/Simulation%20results_sar_tb_replace_cblock256.sch%20file1.png) |
+
+More layout and simulation captures (switches, transmission gates, capacitor blocks) are in [`test/images`](test/images).
+
+#### Contributors and roles
+
+| Contributor | Role |
+|---|---|
+| Lohan Atapattu, Sajitha Madugalle, Hirusha Maduwantha | Schematic design and simulation |
+| **Imasha Nethmal** | **Layout: CDAC and overall top-level layout** |
+| Kithmin Wickremasinghe | Layout (comparator) and tapeout submission |
+| Lohan Atapattu | SAR logic layout (OpenROAD) |
+| Erandee Jayathilaka | SAR logic development (digital) |
+
+---
+
+
 ### 1. Team Members (Department of Electronic and Telecommunication Engineering, University of Moratuwa)
 
 - Sajitha Madugalle.
-- Imasha Weerasingha.
+- Imasha Nethmal.
 - Lohan Atapattu.
 - Erandee Jayathilaka.
 - Hirusha Maduwantha.
