@@ -8,18 +8,73 @@
 >
 > The original proposal and target specification are kept below for reference; the target values are design goals, not achieved results.
 
-#### CDAC layout (SKY130, Magic)
+## Layout
 
-<p align="center"><img src="figures/cdac_layout.png" width="90%" alt="Binary-weighted CDAC layout"/></p>
-<p align="center"><em>Binary-weighted capacitor DAC with its switch array (layout files and LVS output in <code>test/Layout/capdac_p_layout</code>).</em></p>
+Custom layout of the CDAC and its switches was drawn in Magic (SKY130). The digital SAR logic was placed and routed with OpenROAD. Layout files are in `test/Layout/`.
 
-#### Selected simulation results
+#### Binary-weighted CDAC (Magic)
 
-| CDAC / comparator-input convergence during conversion | Output code bits during conversion |
-|---|---|
-| ![CDAC simulation](test/images/simulation_results_sar_tb1_capdac1.png) | ![Output bits](test/images/Simulation%20results_sar_tb_replace_cblock256.sch%20file1.png) |
+<p align="center"><img src="figures/cdac_layout.png" width="90%" alt="CDAC layout"/></p>
+<p align="center"><em>Binary-weighted capacitor DAC with its switch array (<code>test/Layout/capdac_p_layout</code>).</em></p>
 
-More layout and simulation captures (switches, transmission gates, capacitor blocks) are in [`test/images`](test/images).
+| Capacitor and switch unit cell | Sampling transmission-gate switch |
+|:---:|:---:|
+| <img src="figures/capswitch_unit_layout.png" height="380" alt="Capacitor-switch unit cell layout"/> | <img src="figures/switch_layout.png" height="380" alt="Transmission gate layout"/> |
+| Capacitor-switch block layout (<code>test/images/cap_switch_block_layout.png</code>) | Transmission-gate sampling switch (clk / clk_b) |
+
+<p align="center"><img src="figures/cdac_lvs.png" width="55%" alt="CDAC LVS output"/></p>
+<p align="center"><em>Netgen LVS of the CDAC layout against its schematic netlist: 1490 devices and 370 nets on both sides, circuits match uniquely. Netgen also reports property errors (see <code>comp.out</code>), which are not yet resolved.</em></p>
+
+#### SAR logic (OpenROAD, sky130_fd_sc_hd)
+
+<p align="center"><img src="figures/sar_logic_layout.png" width="70%" alt="SAR logic layout"/></p>
+<p align="center"><em>Place-and-route result of the digital SAR logic (roughly 95 × 105 µm including pin stubs), rendered from <code>verilog/sar_digital.gds.gltf</code>. Colours: li1 gold, met1 blue, met2 pink, met3 teal, met4 purple, poly red, diffusion green.</em></p>
+
+The comparator layout (Kithmin) and the final top-level assembly are not included in this repository.
+
+## Block schematics
+
+<p align="center"><img src="figures/schematic_comparator.jpg" width="100%" alt="Comparator schematic"/></p>
+<p align="center"><em>Comparator: differential pre-amplifier, regenerative latch (latch / latch_n) and output stage, biased from a 1 µA reference (bu_1u).</em></p>
+
+<p align="center"><img src="figures/Controller.jpg" width="100%" alt="SAR controller schematic"/></p>
+<p align="center"><em>SAR controller: a shift-register chain of D flip-flops generating the sampling and bit-decision phases (smpl, d0–d7, data_rdy) from clk, rst_n and comp_out.</em></p>
+
+| Differential CDAC (binary-weighted) | Transmission-gate switch |
+|:---:|:---:|
+| <img src="figures/Capacitors.jpg" width="100%" alt="CDAC schematic"/> | <img src="figures/Switch.jpg" width="100%" alt="Switch schematic"/> |
+| Two 9-capacitor arrays (Vip/Vref and Vin/Vref) with Vcm sampling switches | NMOS and PMOS pair, W/L = 1 µm / 0.15 µm each |
+
+## Simulation results (Xschem and ngspice, schematic level)
+
+These are schematic-level simulations. No post-layout or silicon results exist for this design.
+
+#### Sub-blocks
+
+<p align="center"><img src="figures/sim_sampling_switch.png" width="90%" alt="Sampling switch simulation"/></p>
+<p align="center"><em>Transmission-gate sampling switch: output (vout) tracking and holding the input on the sampling clock.</em></p>
+
+<p align="center"><img src="figures/sim_capswitch_unit.png" width="90%" alt="Capacitor-switch unit simulation"/></p>
+<p align="center"><em>Capacitor-switch unit cell: input sine (vin), the two phase clocks and the sampled output (vout1).</em></p>
+
+#### CDAC with comparator and SAR logic
+
+<p align="center"><img src="figures/sim_cdac_comparator_inputs.png" width="90%" alt="Comparator input convergence"/></p>
+<p align="center"><em>Comparator inputs (comp_p, comp_m) across three conversions with the CDAC testbench <code>sar_tb1 _capdac</code>: the two nodes step towards each other as the bits are resolved and settle near the 0.9 V common mode.</em></p>
+
+<p align="center"><img src="figures/sim_output_bits_cdac.png" width="60%" alt="Output bits during conversion"/></p>
+<p align="center"><em>Output bits d0–d7 and data_rdy for the same run, shown over three conversions (each trace is offset vertically for readability).</em></p>
+
+#### Full-array testbenches (<code>test/testbench</code>)
+
+| Output bits with <code>capblock_256</code> (<code>sar_tb_replace_cblock256</code>) | Output bits with the full block (<code>sar_tb_replace_total_block</code>) |
+|:---:|:---:|
+| <img src="figures/sim_output_bits_cblock256.png" width="100%" alt="Output bits cblock256"/> | <img src="figures/sim_output_bits_block.png" width="100%" alt="Output bits total block"/> |
+
+<p align="center"><img src="figures/sim_cdac_block_comparator_inputs.png" width="80%" alt="Comparator inputs, full block"/></p>
+<p align="center"><em>Comparator inputs (comp_p, comp_m) over two conversions with the <code>sar_tb_replace_t_block</code> testbench.</em></p>
+
+More captures and the testbenches themselves are in [`test/images`](test/images) and [`test/testbench`](test/testbench).
 
 #### Contributors and roles
 
