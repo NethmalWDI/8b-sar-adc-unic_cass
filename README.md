@@ -12,6 +12,9 @@
 
 Custom layout of the CDAC and its switches was drawn in Magic (SKY130). The digital SAR logic was placed and routed with OpenROAD. Layout files are in `test/Layout/`.
 
+<p align="center"><img src="figures/sar-adc-chip-layout.jpg" width="90%" alt="Full layout"/></p>
+<p align="center"><em>Full SAR ADC layout in tile.</em></p>
+
 #### Binary-weighted CDAC (Magic)
 
 <p align="center"><img src="figures/cdac_layout.png" width="90%" alt="CDAC layout"/></p>
